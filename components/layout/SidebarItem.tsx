@@ -1,4 +1,6 @@
+// React imports
 import React from "react";
+// Icons
 import { IconType } from "react-icons";
 
 type SidebarItemProps = {
