@@ -17,6 +17,12 @@ const RegisterModal = (props: Props) => {
   const [userName, setUserName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const onToggle = useCallback(() => {
+    if (isLoading) return;
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [isLoading, loginModal, registerModal]);
+
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -60,15 +66,30 @@ const RegisterModal = (props: Props) => {
     </div>
   );
 
+  const footerContent = (
+    <div className="text-neutral-400 text-center mt-6">
+      <p>
+        Already have an account?{" "}
+        <span
+          className="text-white cursor-pointer hover:underline"
+          onClick={onToggle}
+        >
+          Sign in
+        </span>
+      </p>
+    </div>
+  );
+
   return (
     <Modal
-      title="Register"
+      title="Create Account"
       body={bodyContent}
+      footer={footerContent}
       onSubmit={onSubmit}
       disabled={isLoading}
       onClose={registerModal.onClose}
       isOpen={registerModal.isOpen}
-      actionLabel="Create Account"
+      actionLabel="Register"
     />
   );
 };
