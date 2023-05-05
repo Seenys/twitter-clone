@@ -1,5 +1,9 @@
 // React
 import React from "react";
+// Next Auth
+import { signOut } from "next-auth/react";
+// Hooks
+import useCurrentUser from "@/hooks/useCurrentUser";
 // Components
 import SidebarLogo from "./SidebarLogo";
 import SidebarItem from "./SidebarItem";
@@ -8,8 +12,6 @@ import SidebarTweetButton from "./SidebarTweetButton";
 import { FaUser } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { BsHouseFill, BsBellFill } from "react-icons/bs";
-import useCurrentUser from "@/hooks/useCurrentUser";
-import { signOut } from "next-auth/react";
 
 const items = [
   {
