@@ -1,9 +1,14 @@
 // React Imports
 import React, { useCallback, useState } from "react";
+// Next Auth
+import { signIn } from "next-auth/react";
 // Hooks
-import { useLoginModal, useRegisterModal } from "../hooks";
+import useLoginModal from "@/hooks/useLoginModal";
+import useRegisterModal from "@/hooks/useRegisterModal";
 // Components
 import { Modal, Input } from "../shared";
+// Other Imports
+import toast from "react-hot-toast";
 
 type Props = {};
 
@@ -24,15 +29,20 @@ const LoginModal = (props: Props) => {
     try {
       setIsLoading(true);
 
-      //TODO: Login logic
+      await signIn("credentials", {
+        email,
+        password,
+      });
+
+      toast.success("Logged in");
 
       loginModal.onClose();
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
     }
-  }, [loginModal]);
+  }, [loginModal, email, password]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">

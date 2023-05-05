@@ -1,5 +1,5 @@
 // next-auth imports
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 // adapters
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -9,23 +9,24 @@ import bcrypt from "bcrypt";
 // libs
 import { prisma } from "@/libs/";
 
-export default NextAuth({
-  // Configure one or more authentication providers
+export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: "credentials",
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" },
+        email: { label: "email", type: "text" },
+        password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Missing credentials");
+          throw new Error("Invalid credentials");
         }
 
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+          where: {
+            email: credentials.email,
+          },
         });
 
         if (!user || !user?.hashedPassword) {
@@ -53,4 +54,6 @@ export default NextAuth({
     secret: process.env.NEXT_AUTH_JWT_SECRET,
   },
   secret: process.env.NEXT_AUTH_SECRET,
-});
+};
+
+export default NextAuth(authOptions);
