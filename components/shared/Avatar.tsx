@@ -31,6 +31,7 @@ const MainAvatar: React.FC<avatarProps> = ({ userId, isLarge, hasBorder }) => {
 
   return (
     <div
+      onClick={onClick}
       className={`${hasBorder ? "border-4 border-black" : ""} ${
         isLarge ? "w-32 h-32" : "w-12 h-12"
       } rounded-full cursor-pointer hover:opacity-90 transition relative`}
@@ -44,7 +45,6 @@ const MainAvatar: React.FC<avatarProps> = ({ userId, isLarge, hasBorder }) => {
           }}
           alt="Avatar"
           src={fetchedUser?.profileImage}
-          onClick={onClick}
         />
       ) : (
         <Avatar
