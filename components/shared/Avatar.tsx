@@ -48,7 +48,7 @@ const MainAvatar: React.FC<avatarProps> = ({ userId, isLarge, hasBorder }) => {
         />
       ) : (
         <Avatar
-          size={40}
+          size={"100%"}
           name={fetchedUser?.name || "John Doe"}
           variant="beam"
           colors={["#AFFBFF", "#D2FDFE", "#FEFAC2", "#FEBF97", "#FE6960"]}
