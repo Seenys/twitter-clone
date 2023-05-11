@@ -4,7 +4,7 @@ import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 //Components
 import Layout from "@/components/Layout";
-import { LoginModal, RegisterModal } from "@/components/modals";
+import { EditModal, LoginModal, RegisterModal } from "@/components/modals";
 // Other imports
 import { Toaster } from "react-hot-toast";
 //Styles
@@ -16,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Toaster />
       <RegisterModal />
       <LoginModal />
+      <EditModal />
       <Layout>
         <Component {...pageProps} />
       </Layout>
