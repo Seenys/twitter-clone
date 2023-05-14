@@ -7,6 +7,7 @@ import UserBio from "@/components/users/UserBio";
 import Header from "@/components/Header";
 // Other
 import { ClipLoader } from "react-spinners";
+import PostFeed from "@/components/posts/PostFeed";
 
 const UserView = () => {
   const router = useRouter();
@@ -27,6 +28,7 @@ const UserView = () => {
       <Header label={fetchedUser?.name} showBackArrow />
       <UserHero userId={userId as string} />
       <UserBio userId={userId as string} />
+      <PostFeed userId={userId as string} />
     </>
   );
 };
