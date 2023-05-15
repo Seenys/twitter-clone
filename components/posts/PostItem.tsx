@@ -8,7 +8,8 @@ import useLoginModal from "@/hooks/useLoginModal";
 // Other imports
 import { formatDistanceToNowStrict } from "date-fns";
 import { Avatar } from "../shared";
-import { AiOutlineHeart, AiOutlineMessage } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart, AiOutlineMessage } from "react-icons/ai";
+import useLike from "@/hooks/useLike";
 
 type PostItemProps = {
   data: Record<string, any>;
@@ -21,6 +22,7 @@ const PostItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
   const loginModal = useLoginModal();
 
   const { data: currentUser } = useCurrentUser();
+  const { hasLiked, toggleLike } = useLike({ postId: data.id, userId });
 
   const goToUser = useCallback(
     (event: any) => {
@@ -39,12 +41,12 @@ const PostItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
     (event: any) => {
       event.stopPropagation();
       if (!currentUser) {
-        loginModal.onOpen();
-        return;
+        return loginModal.onOpen();
       }
-      console.log("like");
+
+      toggleLike();
     },
-    [loginModal, currentUser]
+    [loginModal, currentUser, toggleLike]
   );
 
   const createdAt = useMemo(() => {
@@ -53,6 +55,8 @@ const PostItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
     }
     return formatDistanceToNowStrict(new Date(data.createdAt));
   }, [data.createdAt]);
+
+  const LikeIcon = hasLiked ? AiFillHeart : AiOutlineHeart;
   return (
     <div
       onClick={goToPost}
@@ -74,14 +78,14 @@ const PostItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
           <div className="flex flex-row items-center mt-3 gap-10">
             <div className="flex flex-row items-center text-neutral-500 gap-2 cursor-pointer transition hover:text-sky-500">
               <AiOutlineMessage size={20} />
-              <span>{data.comments.length || 0}</span>
+              <span>{data.comments?.length || 0}</span>
             </div>
             <div
               onClick={onLike}
               className="flex flex-row items-center text-neutral-500 gap-2 cursor-pointer transition hover:text-red-500"
             >
-              <AiOutlineHeart size={20} />
-              <span>{data.likesIds.length || 0}</span>
+              <LikeIcon size={20} color={hasLiked ? "red" : ""} />
+              <span>{data.likesIds.length}</span>
             </div>
           </div>
         </div>
