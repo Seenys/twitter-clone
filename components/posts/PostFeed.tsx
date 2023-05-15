@@ -1,7 +1,7 @@
 // React imports
 import React from "react";
 // Hooks imports
-import usePost from "@/hooks/usePost";
+import usePosts from "@/hooks/usePosts";
 // Components imports
 import PostItem from "./PostItem";
 
@@ -10,7 +10,7 @@ type PostFeedProps = {
 };
 
 const PostFeed: React.FC<PostFeedProps> = ({ userId }) => {
-  const { data: posts = [] } = usePost(userId);
+  const { data: posts = [] } = usePosts(userId);
 
   return (
     <>

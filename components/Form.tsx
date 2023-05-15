@@ -1,7 +1,7 @@
 // React Imports
 import React, { useCallback, useState } from "react";
 // Hooks
-import usePost from "@/hooks/usePost";
+import usePosts from "@/hooks/usePosts";
 import useLoginModal from "@/hooks/useLoginModal";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useRegisterModal from "@/hooks/useRegisterModal";
@@ -21,7 +21,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
   const loginModal = useLoginModal();
 
   const { data: currentUser } = useCurrentUser();
-  const { mutate: mutatePost } = usePost();
+  const { mutate: mutatePost } = usePosts();
 
   const [body, setBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
