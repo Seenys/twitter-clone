@@ -11,7 +11,7 @@ import SidebarTweetButton from "./SidebarTweetButton";
 // Icons
 import { FaUser } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
-import { BsHouseFill, BsBellFill } from "react-icons/bs";
+import { BsBellFill, BsHouseFill } from "react-icons/bs";
 
 const Sidebar = () => {
   const { data: currentUser } = useCurrentUser();
@@ -24,7 +24,7 @@ const Sidebar = () => {
     },
     {
       label: "Notifications",
-      href: "/notifications",
+      href: "/Notifications",
       icon: BsBellFill,
       auth: true,
       alert: currentUser?.hasNotifications,
